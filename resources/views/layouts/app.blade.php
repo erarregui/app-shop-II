@@ -47,11 +47,17 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    
+                                    @if (auth()->user()->admin)
+                                    <li>
+                                        <a href="{{ url('/admin/products') }} ">Gestionar productos</a>
+                                    </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Desconectarse
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -82,9 +88,9 @@
     </nav>
 
     <div class="wrapper">
+        
         @yield('content')
-        @yield('contenido')
-
+        
     </div>
 
 
