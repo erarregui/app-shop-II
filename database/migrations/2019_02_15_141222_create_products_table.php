@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->string('description');
-            $table->string('long_description')->nullable();
+            $table->text('long_description')->nullable();
             $table->float('price');
 
             // FX: primero se cre la columna y luego se hace referencia a la clave foranea
