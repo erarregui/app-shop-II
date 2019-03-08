@@ -27,9 +27,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::post('/admin/products/{id}/edit', 'ProductController@update'); //actualizar
 	Route::delete('/admin/products/{id}', 'ProductController@destroy'); //eliminar
 
-	Route::get('/admin/{id}/images', 'ImageController@index'); //gestion de imagen
-	Route::post('/admin/{id}/images', 'ImageController@store'); //cargar nuevas imagenes
-	Route::delete('/admin/{id}/images', 'ImageController@destroy'); //eliminar
+	Route::get('/admin/products/{id}/images', 'ImageController@index'); //gestion de imagen
+
+	Route::post('/admin/products/{id}/images', 'ImageController@store'); //cargar nuevas imagenes
+	Route::delete('/admin/products/{id}/images', 'ImageController@destroy'); //eliminar
 });
 
 
