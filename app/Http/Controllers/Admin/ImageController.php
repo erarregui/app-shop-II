@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
@@ -13,7 +14,8 @@ class ImageController extends Controller
     {
 
     	$product = Product::find($id);
-    	$images = $product->images;
+    	//busca las imagenes segun destacada
+    	$images = $product->images()->orderBy('featured', 'desc')->get();
 
     	return view('admin.products.images.index')->with(compact('product', 'images'));
     }
@@ -21,6 +23,15 @@ class ImageController extends Controller
     public function store(Request $request, $id)
     {
     	
+        $messages=[
+            'photo.required' => 'El archivo seleccionado no es una imagen',
+        ];
+
+        $rules=[
+            'photo'=> 'required|image',
+        ];
+
+        $this->validate($request, $rules, $messages);
     	
     	//guardr el archivo img en nuestro proyecto
     	$file = $request->file('photo'); //aqui se obtiene el archivo que se esta subiendo y lo guarda en una variabel $file
@@ -65,8 +76,20 @@ class ImageController extends Controller
     	}
 
     	return back();
-
-
-
     }
+    public function select($id, $image)
+    {
+    	//colocamos en false al campo featured en la talbla ProductImage 
+    	ProductImage::where('product_id', $id)->update([
+    		'featured' => false
+    	]);
+
+    	$productImage = ProductImage::find($image);
+    	$productImage->featured = true;
+    	$productImage->save();
+
+    	return back();
+    	
+    }
+
 }

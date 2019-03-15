@@ -17,20 +17,22 @@ Route::get('/', 'TestController@welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products/{id}', 'ProductController@show');
 
 //primero se verifica en el midd de autenticacion "auth" para pasar al midd "admin"
-Route::middleware(['auth', 'admin'])->group(function () {
-	Route::get('/admin/products', 'ProductController@index'); //Listado
-	Route::get('/admin/products/create', 'ProductController@create'); //crear
-	Route::post('/admin/products', 'ProductController@store'); //crear
-	Route::get('/admin/products/{id}/edit', 'ProductController@edit'); // formulario de edicion
-	Route::post('/admin/products/{id}/edit', 'ProductController@update'); //actualizar
-	Route::delete('/admin/products/{id}', 'ProductController@destroy'); //eliminar
+//se antepone el prefijo "admin" con prefix('admin') y se antepone namespace('admin') en el controlador
+Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function () {
+	Route::get('/products', 'ProductController@index'); //Listado
+	Route::get('/products/create', 'ProductController@create'); //crear
+	Route::post('/products', 'ProductController@store'); //crear
+	Route::get('/products/{id}/edit', 'ProductController@edit'); // formulario de edicion
+	Route::post('/products/{id}/edit', 'ProductController@update'); //actualizar
+	Route::delete('/products/{id}', 'ProductController@destroy'); //eliminar
 
-	Route::get('/admin/products/{id}/images', 'ImageController@index'); //gestion de imagen
-
-	Route::post('/admin/products/{id}/images', 'ImageController@store'); //cargar nuevas imagenes
-	Route::delete('/admin/products/{id}/images', 'ImageController@destroy'); //eliminar
+	Route::get('/products/{id}/images', 'ImageController@index'); //gestion de imagen
+	Route::post('/products/{id}/images', 'ImageController@store'); //cargar nuevas imagenes
+	Route::delete('/products/{id}/images', 'ImageController@destroy'); //eliminar
+	Route::get('/products/{id}/images/select/{image}', 'ImageController@select');//destacar image
 });
 
 

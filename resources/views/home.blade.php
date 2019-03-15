@@ -21,17 +21,24 @@
             @endif
 
 		    <ul class="nav nav-pills nav-pills-primary" role="tablist">
-				<li>
+				<li class="active">
 					<a href="#dashboard" role="tab" data-toggle="tab">
 						<i class="material-icons">dashboard</i>
-						Carrito de Compras
+						Computadoras
 					</a>
 				</li>
 				
 				<li>
 					<a href="#tasks" role="tab" data-toggle="tab">
 						<i class="material-icons">list</i>
-						Pedidos Realizados
+						Telefonos
+					</a>
+				</li>
+
+				<li>
+					<a href="#tasks" role="tab" data-toggle="tab">
+						<i class="material-icons">list</i>
+						Impresoras
 					</a>
 				</li>
 		</ul>   

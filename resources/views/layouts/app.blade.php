@@ -18,11 +18,12 @@
     <!-- CSS Files -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/material-kit.css') }}" rel="stylesheet"/>
-
+    <!-- @yield('styles')  definimos secciones que luego reciben un contenido -->
+    @yield('styles') 
 </head>
 
 <body class="@yield('body-class')">
-    <nav class="navbar navbar-transparent navbar-absolute">
+    <nav class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -108,7 +109,7 @@
 
     <!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
     <script src="{{ asset('js/material-kit.js') }}" type="text/javascript"></script>
-
+    @yield('script')
 </html>
 
 
