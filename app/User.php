@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Cart;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //Relacion de la tabla usuarios con la tabla Carrito
+    public function carts()
+    {
+        //un usuario puede tener varios carritos
+        return $this->hasMany(Cart::class);
+    }
+
+    //accesors cart_id
+    public function getCartAttribute()
+    {
+        $cart = $this->carts()->where('status', 'Active')->first();
+        if ($cart)
+            return $cart;
+        $cart = new Cart();
+        $cart->status = 'Active';
+        $cart->user_id = $this->id;
+        $cart->save();
+
+        return $cart;
+    }
+
 }

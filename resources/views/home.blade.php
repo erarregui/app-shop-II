@@ -14,9 +14,9 @@
         <div class="section ">
             <h2 class="title text.center">Dashboard</h2>
 
-            @if (session('status'))
+            @if (session('notification'))
             	<div class="alert alert-success">
-            		{{ session('status') }}
+            		{{ session('notification') }}
             	</div>
             @endif
 
@@ -24,25 +24,74 @@
 				<li class="active">
 					<a href="#dashboard" role="tab" data-toggle="tab">
 						<i class="material-icons">dashboard</i>
-						Computadoras
+						Carrito de compras
 					</a>
 				</li>
 				
 				<li>
 					<a href="#tasks" role="tab" data-toggle="tab">
 						<i class="material-icons">list</i>
-						Telefonos
+						Pedidos realizados
 					</a>
 				</li>
+			
+		</ul>
+		<hr>   
+		<p>Tu carrito {{ auth()->user()->name}} de compras presenta {{ auth()->user()->cart->details->count()}} producto/s.</p>		
+		 <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="">Nombre</th>
+                        <th >Precio</th>
+                        <th>Cantidad</th>
+                        <th>SubTotal</th>
+                        <th >Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+					
 
-				<li>
-					<a href="#tasks" role="tab" data-toggle="tab">
-						<i class="material-icons">list</i>
-						Impresoras
-					</a>
-				</li>
-		</ul>   
+				    @foreach (auth()->user()->cart->details as $detail)
+                    <tr>
+                        <td class="text-center">
+                        	<img src="{{ $detail->product->featured_image_url}}" height="50">                        	
+                        </td>
+                        <td>
+                        	<a href="{{ url('/products/'.$detail->product->id) }}" target="_blank">{{ $detail->product->name }}</a>
+                        </td>
+                        
+                        <td class="text-right">&#36; {{ $detail->product->price }}</td>
+                        <td>{{  $detail->quantity }}</td>
+                         <td>$ {{  $detail->quantity * $detail->product->price }}</td>
+                        <td class="td-actions text-right">
+                            <form method="post" action="{{ url('/cart')}}">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <input type="hidden" name="cart_detail_id" value="{{ $detail->id }}">
+                                 <a href="{{ url('/products/'.$detail->product->id) }}" target="_blank" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                                <button type="submit" id="12" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </form>
+                        
+                    </tr>
+                    @endforeach
+                    
+                </tbody>
+         </table>
 
+         <div class="text-center">
+         <form method="post" action="{{ url('/order' )}}">
+         	 {{ csrf_field() }}
+	         <button class="btn btn-primary btn-round">
+	         	<i class="material-icons">done</i> Realizar pedido
+	         </button>
+         </form>	
+		 </div>
+        
         </div>
 
 

@@ -19,6 +19,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/products/{id}', 'ProductController@show');
 
+Route::post('/cart', 'CartDetailController@store');
+//eliminar del carrito de compras
+Route::delete('cart', 'CartDetailController@destroy');
+Route::post('/order', 'CartController@update');
+
+
 //primero se verifica en el midd de autenticacion "auth" para pasar al midd "admin"
 //se antepone el prefijo "admin" con prefix('admin') y se antepone namespace('admin') en el controlador
 Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function () {
