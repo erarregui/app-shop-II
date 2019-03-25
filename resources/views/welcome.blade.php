@@ -24,11 +24,11 @@
 @endsection
 
 @section('content')
-<div class="header header-filter" style="background-image: url('https://images.unsplash.com/photo-1423655156442-ccc11daa4e99?crop=entropy&dpr=2&fit=crop&fm=jpg&h=750&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1450');">
+<div class="header header-filter" style="background-image: url('http://nubilis.com/demo_wp/wp-content/uploads/R1A2031b.jpg');">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="title">Bienvenido a App Shop.</h1>
+                        <h1 class="title">Bienvenido.</h1>
                         <h4>Realiza pedidos en linea y te contactaremos para coodinar la entrega.</h4>
                         <br />
                         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-danger btn-raised btn-lg">
@@ -44,7 +44,7 @@
                 <div class="section text-center section-landing">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h2 class="title">Por que App Shop?</h2>
+                            <h2 class="title">Por que elegir nuestros productos?</h2>
                             <h5 class="description">Puedes revisar nuestra relación completa de produtos, comparar precios y realizar tus pedidos cuando estes seguro.</h5>
                         </div>
                     </div>
