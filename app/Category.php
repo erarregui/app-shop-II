@@ -13,4 +13,10 @@ class Category extends Model
     	return $this->hasMany(Product::class);
     	//esto ($this) tiene muchos (hasMany) productos (Product)
     }
+
+    public function getFeaturedImageUrlAttribute()
+    {
+    	$featuredProduct = $this->products()->first();
+    	return $featuredProduct->featured_image_url;
+    }
 }

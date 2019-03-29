@@ -31,9 +31,9 @@
                         <h1 class="title">Bienvenido.</h1>
                         <h4>Realiza pedidos en linea y te contactaremos para coodinar la entrega.</h4>
                         <br />
-                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-danger btn-raised btn-lg">
+                        <!-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-danger btn-raised btn-lg">
                             <i class="fa fa-play"></i> ¿Como funciona?
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -83,27 +83,30 @@
                 </div>
 
                 <div class="section text-center">
-                    <h2 class="title">Productos disponibles</h2>
+                    <h2 class="title">Nuestras categorias</h2>
+                    <form class="form-inline" method="get" action="{{ url('/search') }}">
+                        <input type="text" placeholder="¿Qué producto buscas?" class="form-control" name="query" id="search">
+                        <button class="btn btn-primary btn-just-icon" type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </form>
 
                     <div class="team">
                         <div class="row">
-                            @foreach($products as $product)
+                            @foreach($categories as $category)
                             <div class="col-md-4">
                                 <div class="team-player">
-                                    <img src="{{ $product->featured_image_url }}" alt="Thumbnail Image" class="img-raised img-circle">
+                                    <img src="{{ $category->featured_image_url }}" alt="Imagne representativa de la categoria {{ $category->name }}" class="img-raised img-circle">
                                     <h4 class="title">
-                                        <a href="{{ url('/products/'.$product->id) }}">{{ $product->name }}</a>
+                                        <a href="{{ url('/categories/'.$category->id) }}">{{ $category->name }}</a>
                                          <br />
-                                        <small class="text-muted">{{ $product->category->name }}</small>
-                                    </h4>
-                                    <p class="description">{{ $product->description }}</p>
+                                     </h4>
+                                    <p class="description">{{ $category->description }}</p>
                                 </div>
                             </div>
                             @endforeach
                         </div>
-                        <div class="text-center">
-                            {{ $products->links()}}
-                        </div>
+                        
                     </div>
 
                 </div>
