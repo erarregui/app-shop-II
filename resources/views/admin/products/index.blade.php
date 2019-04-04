@@ -98,7 +98,7 @@
     </div>
   </div>
 </div>
-@section('script')
+@section('scripts')
 <script src="{{ asset('js/script.js')}}"></script>
 @endsection
 @include('includes.footer') 
