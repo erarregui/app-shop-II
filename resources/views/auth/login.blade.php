@@ -8,6 +8,12 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
                 <div class="card card-signup">
+                    @if ($notification)
+                    <div class="alert alert-success">
+                            {{ $notification }}
+                    </div>
+                    @endif
+                   
                     <form class="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
                         <!-- @if ($errors->any())

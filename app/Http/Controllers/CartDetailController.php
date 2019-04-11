@@ -7,6 +7,11 @@ use App\CartDetail;
 
 class CartDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function store(Request $request)
     {
     	//generamos una nueva instancia del objeto CartDetail
@@ -19,7 +24,7 @@ class CartDetailController extends Controller
     	//grabamos el nuevo registro
     	$cartDetail->save();
 
-    	$notification = 'El producto se ha agregado correctamente al carrido de compras.';
+    	$notification = 'El producto se ha agregado correctamente al carrito de compras.';
     	return back()->with(compact('notification'));
     }
 

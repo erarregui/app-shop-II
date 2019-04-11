@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-<!--aplica una clase-->
 @section('body-class', 'signup-page')
 
 @section('content')
@@ -9,6 +8,17 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
                 <div class="card card-signup">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form class="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
@@ -85,7 +95,6 @@
         </div>
     </div>
 
-    @include('includes.footer') 
-
+    @include('includes.footer')
 </div>
 @endsection

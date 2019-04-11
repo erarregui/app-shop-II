@@ -6,102 +6,79 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use File;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-    	$categories = Category::OrderBy('name')->paginate(5);
-    	//devuelve        esta vista         con         estos datos
-    	return view('admin.categories.index')->with(compact('categories'));  //listado
-    	//le inyectamos a la vista (index.blade.php) la variable products
+        $categories = Category::orderBy('name')->paginate(10);
+        return view('admin.categories.index')->with(compact('categories')); // listado
     }
 
     public function create()
     {
-    	return view('admin.categories.create'); //formulario de registro
+        return view('admin.categories.create'); // formulario de registro
     }
 
     public function store(Request $request)
     {
-    	//registrar el nuevo producto en la BD
-    	//dd($request->all());
-    	
-    	//validar
-    	$messages=[
-    		'name.required' => 'Es necesario ingresar un nombre para la categoria',
-    		'name.min' => 'El nombre de la categoria debe tener al menos 3 caracateres',
-    		'name.unique'=> 'Esta categoria ya se encuentra registrada',
-    		'description.required' => 'La descripcion  es un campo requerido',
-    		'description.max' => 'La descripcion solo adminte hasta 250 caracateres',
-    		
-    	];
+        $this->validate($request, Category::$rules, Category::$messages);
 
-    	$rules=[
-    		'name'=> 'required|min:3',
-    		'name'=> 'unique:categories,name',
-    		'description'=> 'required|max:200',
+        $category = Category::create($request->only('name', 'description'));
 
-    	];
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = public_path() . '/images/categories';
+            $fileName = uniqid() . '-' . $file->getClientOriginalName();
+            $moved = $file->move($path, $fileName);
+            
+            // update category
+            if ($moved) {
+                $category->image = $fileName;
+                $category->save(); // UPDATE
+            }
+        }
 
-    	$this->validate($request, $rules, $messages);
-
-    	$category = new Category();
-
-    	$category->name = $request->input('name');
-    	$category->description = $request->input('description');
-    	$category->save();
-        
-        //redirije a la ruta /admin/products
-    	return redirect('/admin/categories')->with('notification', 'Categoria registrada exitosamente');
+        return redirect('/admin/categories');
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-    	//return "Mostrar aqui el form de edicion para el producto con id $id";
-    	$category = Category::find($id);
-    	return view('admin.categories.edit')->with(compact('category')); //formulario de edicion
+        return view('admin.categories.edit')->with(compact('category')); // form de edición
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-    	//actualizar el producto
-    	//dd($request->all());
-    	$messages=[
-    		'name.required' => 'Es necesario ingresar un nombre para la categoria',
-    		'name.min' => 'El nombre de la categoria debe tener al menos 3 caracateres',
-    		'description.required' => 'La descripcion  es un campo requerido',
-    		'description.max' => 'La descripcion solo adminte hasta 250 caracateres',
-    		
-    	];
+        $this->validate($request, Category::$rules, Category::$messages);
 
-    	$rules=[
-    		'name'=> 'required|min:3',
-    		'description'=> 'required|max:200',
-    	];
+        //aqui actualizamos solamente name y description con only
+        $category->update($request->only('name', 'description'));
+        //aqui la imagen
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = public_path() . '/images/categories';
+            $fileName = uniqid() . '-' . $file->getClientOriginalName();
+            $moved = $file->move($path, $fileName);
+            
+            // borramos la imagen anterior
+            if ($moved) {
+                $previousPath = $path . '/' . $category->image;
 
-    	$this->validate($request, $rules, $messages);
+                $category->image = $fileName;
+                $saved = $category->save(); // UPDATE
+                dd($saved);
+                if ($saved)
+                    File::delete($previousPath);
+            }
+        }        
 
-    	$category = Category::find($id);
-    	$category->name = $request->input('name');
-    	$category->description = $request->input('description');
-    	
-    	$category->update(); //ACTUALIZAR
-        
-        //redirije a la ruta /admin/products
-    	return redirect('/admin/categories')->with('notification', 'Categoria actualizada exitosamente');
-        //return back()->with('notification', 'Equipo registrado exitosamente.');
+        return redirect('/admin/categories');
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-    	//eliminar el producto
-
-    	
-    	$category = Category::find($id);
-    	$category->delete(); //ELIMINAR
-        
-        //redirije a la ruta /admin/products
-    	return back();
+        $category->delete(); // DELETE
+        return back();
     }
 }

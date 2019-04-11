@@ -72,7 +72,7 @@
                                  <a href="{{ url('/products/'.$detail->product->id) }}" target="_blank" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs">
                                     <i class="fa fa-info"></i>
                                 </a>
-                                <button type="submit" id="12" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                <button type="submit" id="12" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs" onclick="return confirm('Esta seguro de eliminar el pedido?')">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </form>
@@ -88,9 +88,11 @@
          <div class="text-center">
          <form method="post" action="{{ url('/order' )}}">
          	 {{ csrf_field() }}
-	         <button class="btn btn-primary btn-round">
+             @if (auth()->user()->cart->total > 0 )
+	         <button onclick="return confirm('Esta seguro de realizar el pedido?')" class="btn btn-primary btn-round">
 	         	<i class="material-icons">done</i> Realizar pedido
 	         </button>
+             @endif
          </form>	
 		 </div>
         

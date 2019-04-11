@@ -34,10 +34,16 @@
             </div>
 
             <div class="text-center">
-	            <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalAddCart">
-					<i class="material-icons">add</i> Añadir al carrido de compras
-				</button>
-			</div>
+                @if (auth()->check())
+                    <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalAddCart">
+                        <i class="material-icons">add</i> Añadir al carrito de compras
+                    </button>
+                @else
+                    <a  class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalSesion">
+                        <i class="material-icons">add</i> Añadir al carrito de compras
+                    </a>
+                @endif
+            </div> 
 						
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
@@ -94,7 +100,26 @@
 			    </div>
 			  </div>
 			</div>
-    
+    		<div class="modal fade" id="modalSesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <div class="alert alert-success">
+			        	<h4 class="text-center" id="myModalLabel" >
+			        	   <i class="material-icons">face</i>  Para poder continuar debe iniciar sesion</h4>
+			         </div>
+			      </div>
+			         <div class="modal-footer">
+				        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancelar</button>
+						
+						<a style="margin-bottom: 10px" href="{{ url('/login?redirect_to='.url()->current()) }}" class="btn btn-info btn-simple">
+                        Iniciar Sesion
+                    	</a>
+				      </div>
+			      
+			    </div>
+			  </div>
+			</div>
 @include('includes.footer')        
 @endsection
 

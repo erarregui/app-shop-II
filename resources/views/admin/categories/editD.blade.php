@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Bienvenido a App Shop')
-
 @section('body-class', 'product-page')
 
 @section('content')
@@ -10,53 +8,52 @@
 
 <div class="main main-raised">
     <div class="container">
-        
-        <div class="section ">
-            <h2 class="title">Registrar nueva categoria</h2>
+
+        <div class="section">
+            <h2 class="title text-center">Editar categoría seleccionada {{$category->id}}</h2>
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
-                        @foreach($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
             @endif
 
-            <form method="post" action="{{ url('/admin/categories') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ url('/admin/categories/'.$category->id.'/edit') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group label-floating">
                             <label class="control-label">Nombre de la categoría</label>
-                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control" name="name" value="{{ old('name', $category->name) }}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label class="control-label">Imagen de la categoría</label>
                         <input type="file" name="image">
-                    </div>
+                        @if ($category->image)
+                        <p class="help-block">
+                            Subir sólo si desea reemplazar la 
+                            <a href="{{ asset('/images/categories/'.$category->image) }}" target="_blank">imagen actual</a>
+                        </p>
+                        @endif
+                    </div>                    
                 </div>
 
-                <div class="form-group label-floating">
-                        <label class="control-label">Descripcion de la categoria</label>
-                        <input type="text" class="form-control" name="description" value="{{ old('description')}}" placeholder="">
-                </div>
+                <textarea class="form-control" placeholder="Descripción de la categoría" rows="5" name="description">{{ old('description', $category->description) }}</textarea>
 
-                <button class="btn btn-primary">Registrar categoria</button>
+                <button class="btn btn-primary">Guardar cambios</button>
                 <a href="{{ url('/admin/categories') }}" class="btn btn-default">Cancelar</a>
-   
             </form>
-
         </div>
 
     </div>
 
 </div>
 
-@include('includes.footer') 
+@include('includes.footer')
 @endsection
-
-
-
