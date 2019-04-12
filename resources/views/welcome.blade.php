@@ -156,31 +156,31 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h2 class="text-center title">¿Aún no te has registrado?</h2>
-                            <h4 class="text-center description">Divide details about your product or agency work into parts. Write a few lines about each one and contact us about any further collaboration. We will responde get back to you in a couple of hours.</h4>
-                            <form class="contact-form">
+                            <h4 class="text-center description">Para poder realiar un pedido deberas estar registrado, de todas maneras puesdes realizr una consulta mediante mail y te responderemos pronto</h4>
+                            <form class="contact-form" method="get" action="{{ url('/email')}}">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group label-floating">
-                                            <label class="control-label">Your Name</label>
-                                            <input type="email" class="form-control">
+                                            <label class="control-label">Tu nombre</label>
+                                            <input type="text" class="form-control" name="name">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group label-floating">
-                                            <label class="control-label">Your Email</label>
-                                            <input type="email" class="form-control">
+                                            <label class="control-label">Tu emil</label>
+                                            <input type="email" class="form-control" name="email">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group label-floating">
-                                    <label class="control-label">Your Messge</label>
-                                    <textarea class="form-control" rows="4"></textarea>
+                                    <label class="control-label">Tu mensaje</label>
+                                    <textarea class="form-control" name="message" rows="4"></textarea>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4 text-center">
-                                        <button class="btn btn-primary btn-raised">
+                                        <button type="submit" class="btn btn-primary btn-raised">
                                             Send Message
                                         </button>
                                     </div>
