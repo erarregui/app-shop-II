@@ -24,7 +24,7 @@ class NewMessage extends Mailable
     {
         $this->name = $name;
         $this->email = $email;
-        $this->message = $consult;
+        $this->consult = $consult;
     }
 
     /**

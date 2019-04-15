@@ -1,7 +1,3 @@
-{{ $name }}
-{{ $email }}
-{{ $consult }}
-
 <!DOCTYPE html>
 <html>
 <head>
