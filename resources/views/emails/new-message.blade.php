@@ -21,7 +21,6 @@
 	<p>Y esta es la consulta:</p>
 	<ul>
 		<li>
-			<strong>Consulta:</strong>
 			{{ $consult }}	
 		</li>
 		
