@@ -18,7 +18,9 @@ class EmailController extends Controller
    	$message = $request->input('message');*/
 
    	//dd($name, $email, $message);
+   	//dd($request->all());
    	$admins = User::where('admin', true)->get();
-    Mail::to($admins)->send(new NewMessage($request->name, $request->email, $request->message));
+    Mail::to($admins)->send(new NewMessage($request->name, $request->email, $request->consult));
+    return back();
    }
 }

@@ -13,18 +13,18 @@ class NewMessage extends Mailable
 
     public $name;
     public $email;
-    public $message;
+    public $consult;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $message) 
+    public function __construct($name, $email, $consult) 
     {
         $this->name = $name;
         $this->email = $email;
-        $this->message = $message;
+        $this->message = $consult;
     }
 
     /**

@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/search', 'SearchController@show');
 Route::get('/products/json', 'SearchController@data');
-Route::get('/email', 'EmailController@send');
+Route::post('/email', 'EmailController@send');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/products/{id}', 'ProductController@show');

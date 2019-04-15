@@ -157,7 +157,8 @@
                         <div class="col-md-8 col-md-offset-2">
                             <h2 class="text-center title">¿Aún no te has registrado?</h2>
                             <h4 class="text-center description">Para poder realiar un pedido deberas estar <a href="{{ url('/register') }}" target="_blank">Registrado</a>, de todas maneras puedes realizr una consulta mediante email y te responderemos pronto</h4>
-                            <form class="contact-form" method="get" action="{{ url('/email')}}">
+                            <form class="contact-form" method="post" action="{{ url('/email')}}">
+                                {{ csrf_field()}}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group label-floating">
@@ -175,13 +176,13 @@
 
                                 <div class="form-group label-floating">
                                     <label class="control-label">Tu mensaje</label>
-                                    <textarea class="form-control" name="message" rows="4"></textarea>
+                                    <textarea class="form-control" name="consult" rows="4"></textarea>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4 text-center">
                                         <button type="submit" class="btn btn-primary btn-raised">
-                                            Send Message
+                                            Enviar Mensaje
                                         </button>
                                     </div>
                                 </div>
