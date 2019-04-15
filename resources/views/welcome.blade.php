@@ -154,6 +154,9 @@
 
                 <div class="section landing-section">
                     <div class="row">
+                        <div class="alert alert-success">
+                            {{ $notification }}
+                        </div>
                         <div class="col-md-8 col-md-offset-2">
                             <h2 class="text-center title">¿Aún no te has registrado?</h2>
                             <h4 class="text-center description">Para poder realiar un pedido deberas estar <a href="{{ url('/register') }}" target="_blank">Registrado</a>, de todas maneras puedes realizr una consulta mediante email y te responderemos pronto</h4>

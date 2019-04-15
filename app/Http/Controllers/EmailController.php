@@ -21,6 +21,9 @@ class EmailController extends Controller
    	//dd($request->all());
    	$admins = User::where('admin', true)->get();
     Mail::to($admins)->send(new NewMessage($request->name, $request->email, $request->consult));
-    return back();
+    $notification = 'Tu consulta ha sido enviada correctamente. Te contactaremos pronto!';
+    
+    return back()->with(compact('notification'));
+    
    }
 }
